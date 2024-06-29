@@ -1,7 +1,8 @@
 from typing import Any
+from uuid import uuid4
 
 from core.app import Request
-from fastapi import APIRouter
+from fastapi import APIRouter, Form
 
 from .schemas import OkSchema, UploadFileSchema
 
@@ -13,8 +14,12 @@ image_route = APIRouter()
     response_model=OkSchema,
 )
 async def upload_image(
-    request: "Request", file: UploadFileSchema, bucket: str, object_name: str
+        request: "Request",
+        file: UploadFileSchema,
+        bucket: str = Form(),
+        object_name: str = Form(),
 ) -> Any:
+    print(bucket, object_name, file)
     await request.app.store.s3.upload(bucket, object_name, file)
     return OkSchema()
 
@@ -39,10 +44,10 @@ async def delete(request: "Request", bucket: str, object_name: str) -> Any:
     response_model=OkSchema,
 )
 async def update(
-    request: "Request",
-    bucket: str,
-    object_name: str,
-    file: UploadFileSchema,
+        request: "Request",
+        bucket: str,
+        object_name: str,
+        file: UploadFileSchema,
 ) -> Any:
     await request.app.store.s3.is_object_exist(bucket, object_name)
     await request.app.store.s3.upload(bucket, object_name, file)
