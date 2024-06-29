@@ -1,5 +1,5 @@
 FROM python:3.12.3
-WORKDIR image_store
+WORKDIR meme_storage
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
@@ -28,6 +28,6 @@ ENV S3_PORT=8005
 RUN pip install --upgrade pip  --no-cache-dir
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
-COPY image_store .
+COPY meme_storage .
 
 CMD python main.py
