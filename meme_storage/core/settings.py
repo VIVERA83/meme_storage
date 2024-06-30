@@ -14,7 +14,7 @@ class Base(BaseSettings):
         """Настройки для чтения переменных среды из файла."""
 
         env_nested_delimiter = "__"
-        env_file = os.path.join(BASE_DIR, ".env_image_store")
+        env_file = os.path.join(BASE_DIR, ".env")
         enf_file_encoding = "utf-8"
         extra = "ignore"
 
